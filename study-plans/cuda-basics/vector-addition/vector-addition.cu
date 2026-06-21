@@ -40,7 +40,7 @@ void practice_raw_cuda(const float *host_A, const float *host_B, float *host_C, 
     cudaFree(d_C);
 }
 
-// 3. TensorTonic Entry Point
+// TensorTonic Entry Point
 extern "C" void solve(const float *A, const float *B, float *C, int N) {
     // TensorTonic passes pre-allocated device pointers by default. 
     // To practice the raw pipeline, we must simulate having host pointers first.
