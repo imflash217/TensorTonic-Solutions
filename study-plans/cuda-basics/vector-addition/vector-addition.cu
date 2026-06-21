@@ -1,40 +1,6 @@
-// #include <cuda_runtime.h>
-
-// __global__ void vector_add(const float* A, const float* B, float* C, int N) {
-//     int t_id = blockIdx.x * blockDim.x + threadIdx.x;
-//     if (t_id < N) {
-//         C[t_id] = A[t_id] + B[t_id];
-//     }
-//     // part-1: allocate device memory for A,B,C.
-//     // float *A_d;
-//     // float *B_d;
-//     // float *C_d;
-
-//     // int mem_size = N * sizeof(float);
-
-//     // cudaMalloc((void**)&A_d, mem_size);
-//     // cudaMalloc((void**)&B_d, mem_size);
-//     // cudaMalloc((void**)&C_d, mem_size);
-
-//     // part-2: compute the vector addition
-
-//     // // part 3: free device memory
-//     // cudaFree(A_d);
-//     // cudaFree(B_d);
-//     // cudaFree(C_d);
-// }
-
-// extern "C" void solve(const float* A, const float* B, float* C, int N) {
-//     int threads = 256;
-//     int blocks = (N + threads - 1) / threads;
-//     vector_add<<<blocks, threads>>>(A, B, C, N); // invoke the kernel
-//     cudaDeviceSynchronize();
-// }
-
 #include <cuda_runtime.h>
 #include <iostream>
 
-// 1. The Kernel (Stays simple: only does the math)
 __global__ void vector_add_kernel(const float *A, const float *B, float *C, int N) {
     int tid = blockIdx.x * blockDim.x + threadIdx.x;
     if (tid < N) {
@@ -42,7 +8,6 @@ __global__ void vector_add_kernel(const float *A, const float *B, float *C, int 
     }
 }
 
-// 2. Your Custom Host Function (Where you practice raw CUDA memory management)
 void practice_raw_cuda(const float *host_A, const float *host_B, float *host_C, int N) {
     float *d_A = nullptr;
     float *d_B = nullptr;
